@@ -12,7 +12,11 @@ MAP_SRCS    = srcs/map/dp_map_load.c \
               srcs/map/dp_map_free.c
 TERM_SRCS	= srcs/term/dp_term.c \
 			  srcs/term/dp_key.c
-SRCS        = srcs/main.c $(UTILS_SRCS) $(MAP_SRCS) $(TERM_SRCS)
+GAME_SRCS	= srcs/game/dp_game_init.c \
+			  srcs/game/dp_player_move.c \
+			  srcs/game/dp_game_render.c \
+			  srcs/game/dp_game_loop.c
+SRCS        = srcs/main.c $(UTILS_SRCS) $(MAP_SRCS) $(TERM_SRCS) $(GAME_SRCS)
 OBJS        = $(SRCS:.c=.o)
 
 all: $(NAME)
@@ -24,7 +28,7 @@ $(NAME): $(OBJS)
 	cc $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	rm -f $(OBJS) test_ex0 test_ex1 test_ex2
+	rm -f $(OBJS) test_ex0 test_ex1 test_ex2 test_ex3
 
 fclean: clean
 	rm -f $(NAME)
@@ -38,6 +42,8 @@ test: test_ex0 test_ex1 test_ex2
 	@./test_ex1
 	@echo "\n=== Executing de test_ex2 ==="
 	@./test_ex2
+	@echo "\n=== Executing de test_ex3 ==="
+	@./test_ex3
 
 test_ex0: tests/test_ex0.c $(UTILS_SRCS)
 	cc $(CFLAGS) $(INCLUDES) tests/test_ex0.c $(UTILS_SRCS) -o test_ex0
@@ -45,7 +51,10 @@ test_ex0: tests/test_ex0.c $(UTILS_SRCS)
 test_ex1: tests/test_ex1.c $(UTILS_SRCS) $(MAP_SRCS)
 	cc $(CFLAGS) $(INCLUDES) tests/test_ex1.c $(UTILS_SRCS) $(MAP_SRCS) -o test_ex1
 
-test_ex2: tests/test_ex2.c $(UTILS_SRCS)
+test_ex2: tests/test_ex2.c $(UTILS_SRCS) $(TERM_SRCS)
 	cc $(CFLAGS) $(INCLUDES) tests/test_ex2.c $(UTILS_SRCS) $(TERM_SRCS) -o test_ex2
 
-.PHONY: all clean fclean re test test_ex0 test_ex1 test_ex2
+test_ex3: tests/test_ex3.c $(UTILS_SRCS) $(GAME_SRCS) $(TERM_SRCS) $(MAP_SRCS)
+	cc $(CFLAGS) $(INCLUDES) tests/test_ex3.c $(UTILS_SRCS) $(GAME_SRCS) $(TERM_SRCS) $(MAP_SRCS) -o test_ex3
+
+.PHONY: all clean fclean re test test_ex0 test_ex1 test_ex2 test_ex3
