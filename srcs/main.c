@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include "dp_game.h"
 #include "dp_term.h"
+#include "dp_entity.h"
 
 int main(int argc, char **argv)
 {
@@ -26,6 +27,7 @@ int main(int argc, char **argv)
     }
     dp_game_loop(&game);
     dp_map_free(&game.map);
+    dp_entity_clear(&game.entities);
     dp_term_raw_off(&saved_term);
     return 0;
 }

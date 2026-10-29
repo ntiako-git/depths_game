@@ -16,7 +16,10 @@ GAME_SRCS	= srcs/game/dp_game_init.c \
 			  srcs/game/dp_player_move.c \
 			  srcs/game/dp_game_render.c \
 			  srcs/game/dp_game_loop.c
-SRCS        = srcs/main.c $(UTILS_SRCS) $(MAP_SRCS) $(TERM_SRCS) $(GAME_SRCS)
+ENTITY_SRCS	= srcs/entity/dp_entity_new.c \
+			  srcs/entity/dp_entity_list.c \
+			  srcs/entity/dp_entity_spawn.c
+SRCS        = srcs/main.c $(UTILS_SRCS) $(MAP_SRCS) $(TERM_SRCS) $(GAME_SRCS) $(ENTITY_SRCS)
 OBJS        = $(SRCS:.c=.o)
 
 all: $(NAME)
@@ -28,14 +31,14 @@ $(NAME): $(OBJS)
 	cc $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	rm -f $(OBJS) test_ex0 test_ex1 test_ex2 test_ex3
+	rm -f $(OBJS) test_ex0 test_ex1 test_ex2 test_ex3 test_ex4
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
 
-test: test_ex0 test_ex1 test_ex2
+test: test_ex0 test_ex1 test_ex2 test_ex3 test_ex4
 	@echo "\n=== Executing test_ex0 ==="
 	@./test_ex0
 	@echo "\n=== Executing de test_ex1 ==="
@@ -44,6 +47,8 @@ test: test_ex0 test_ex1 test_ex2
 	@./test_ex2
 	@echo "\n=== Executing de test_ex3 ==="
 	@./test_ex3
+	@echo "\n=== Executing de test_ex4 ==="
+	@./test_ex4
 
 test_ex0: tests/test_ex0.c $(UTILS_SRCS)
 	cc $(CFLAGS) $(INCLUDES) tests/test_ex0.c $(UTILS_SRCS) -o test_ex0
@@ -57,4 +62,7 @@ test_ex2: tests/test_ex2.c $(UTILS_SRCS) $(TERM_SRCS)
 test_ex3: tests/test_ex3.c $(UTILS_SRCS) $(GAME_SRCS) $(TERM_SRCS) $(MAP_SRCS)
 	cc $(CFLAGS) $(INCLUDES) tests/test_ex3.c $(UTILS_SRCS) $(GAME_SRCS) $(TERM_SRCS) $(MAP_SRCS) -o test_ex3
 
-.PHONY: all clean fclean re test test_ex0 test_ex1 test_ex2 test_ex3
+test_ex4: tests/test_ex4.c $(UTILS_SRCS) $(ENTITY_SRCS)
+	cc $(CFLAGS) $(INCLUDES) tests/test_ex4.c $(UTILS_SRCS) $(ENTITY_SRCS) -o test_ex4
+
+.PHONY: all clean fclean re test test_ex0 test_ex1 test_ex2 test_ex3 test_ex4
