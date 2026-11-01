@@ -1,7 +1,8 @@
 #ifndef FT_DEPTHS_DP_ENTITY_H
 #define FT_DEPTHS_DP_ENTITY_H
-#include "dp_game.h"
 #include <stdlib.h>
+
+struct s_game;
 
 typedef struct s_entity
 {
@@ -17,6 +18,6 @@ void		dp_entity_push_back(t_entity **list, t_entity *new);
 t_entity	*dp_entity_at(t_entity *list, int x, int y);
 void		dp_entity_remove_at(t_entity **list, int x, int y);
 void		dp_entity_clear(t_entity **list);
-int			dp_entity_spawn_all(t_game *game);
+int			dp_entity_spawn_all(struct s_game *game);
 
 #endif

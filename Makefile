@@ -13,9 +13,12 @@ MAP_SRCS    = srcs/map/dp_map_load.c \
 TERM_SRCS	= srcs/term/dp_term.c \
 			  srcs/term/dp_key.c
 GAME_SRCS	= srcs/game/dp_game_init.c \
-			  srcs/game/dp_player_move.c \
 			  srcs/game/dp_game_render.c \
-			  srcs/game/dp_game_loop.c
+			  srcs/game/dp_game_loop.c \
+			  srcs/game/dp_bindings.c \
+			  srcs/game/dp_actions.c \
+			  srcs/game/dp_combat.c \
+			  srcs/game/dp_monsters.c
 ENTITY_SRCS	= srcs/entity/dp_entity_new.c \
 			  srcs/entity/dp_entity_list.c \
 			  srcs/entity/dp_entity_spawn.c
